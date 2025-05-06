@@ -1,0 +1,68 @@
+{% block title %}
+    <h1 style="text-align: center;">
+        Check-Up
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <style>
+    .otree-timer {
+        display: none;
+    }
+</style>
+
+    <br>
+    <style>
+        html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .centered {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+        .content-padding {
+            padding-left: 20px; /* Adjust the value as needed */
+        }
+    </style>
+    <div class="centered">
+        One last question and we are ready to start the experiment!<br><br>
+    </div>
+
+
+    <div class="content-centered">
+        The next round begins, and in this round, every player chooses to  <b>take </b> the money except for the players in positions 5 and 7. Who will get the money this time?<br><br>
+        <br><br>
+        <div class="centered">Your Answer was
+        {{ if player.answer2a == 1 }}
+        correct.
+        {{ else }}
+        wrong.
+        {{ endif }}
+        <br><br><br><br>
+        Only the first player who chooses to take the money will receive it. In this case, it's the player in position 1.
+        <br>
+</div>
+<br><br>
+    </div>
+    <div style="text-align: center;">
+        {{ next_button }}
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 7) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+{% endblock %}

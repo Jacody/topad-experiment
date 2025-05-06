@@ -1,0 +1,149 @@
+
+{% block title %}
+    <div class="centered">
+        <h1>Instructions</h1>
+        <h4>Take it or double it and give it to the next person.</h4>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <style>
+    .otree-timer {
+        display: none;
+    }
+    </style>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .centered {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .content {
+    margin: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .next-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Space above the button */
+  }
+</style>
+
+
+<div class="content">
+
+
+
+        Welcome to our economic decision-making experiment. In this game, you will interact with other people and make decisions that determine your payout.<br><br>
+
+        <h4>Gameplay:</h4>
+        <h5>Role Assignment:</h5>
+
+        <ul>
+            <li>You will be randomly assigned a position from 1 to {{ C.NUM_PLAYERS }}.</li>
+            <li>Depending on this position, you can receive a payout.</li>
+            <li>The first person is offered {{C.STARTINGVALUE }} dollar, and each subsequent person is offered double the previous amount, up to the {{ C.NUM_PLAYERS }}th person who is offered {{C.ENDVALUE }} dollar.</li>
+            <li>Here is a full table with the offered Payouts:</li>
+        </ul>
+    <br>
+
+  <table>
+    <tr>
+      <th>1.</th>
+      <th>2.</th>
+      <th>3.</th>
+      <th>4.</th>
+      <th>5.</th>
+      <th>6.</th>
+      <th>7.</th>
+      <th>8.</th>
+      <th>9.</th>
+      <th>10.</th>
+       {{ if C.NUM_PLAYERS == 12 }}
+      <th>11.</th>
+      <th>12.</th>
+        {{endif}}
+
+    <tr>
+      {{ if C.STARTINGVALUE  == 0.03 }}
+      <td>0.03</td>
+      <td>0.06</td>
+      {{endif}}
+      <td>0.12</td>
+      <td>0.24</td>
+      <td>0.48</td>
+      <td>0.96</td>
+      <td>1.92</td>
+      <td>3.84</td>
+      <td>7.68</td>
+      <td>15.36</td>
+      {{ if C.NUM_PLAYERS == 12 or C.STARTINGVALUE == 0.12 }}
+      <td>30.72</td>
+      <td>61.44</td>
+        {{endif}}
+    </tr>
+  </table>
+    <br><br>
+ <h5>Round Procedure:</h5>
+        <ul>
+            <li>First, you will learn your position for this round and the amount of money offered to you.</li>
+            <li>You can either accept the offered amount of money or "pass it on."</li>
+            <li>The first position that accepts the money gets the payout. All others get nothing this round.</li>
+            <li>The game is played for {{ C.NUM_PLAYERS }} rounds. Each round, all players are assigned a new position and thus a different payout offer.</li>
+        </ul>
+
+
+
+<h5>Example:</h5>
+        <p>In one round, all players decide to pass the money except for positions 4, 6, and 9. They decide to accept the money. In this case, only position 4 gets the payout because it was the first position to accept the money. The other players will learn that position 4 received the money, and a new round with new positions will begin.</p>
+ <h5>Important Notes:</h5>
+            <ul>
+                <li>There is no communication between players during the game.</li>
+                <li>The decisions of the players are anonymous, and the other players will only learn at which position the money was first accepted, but not by which player.</li>
+                 <li>Please stay for the entire duration of the experiment, even if you have to wait for the other players at times.</li>
+            </ul>
+     <h5>Objective:</h5>
+            <p>The objective of this experiment is to analyze the decisions on when an amount is kept for oneself and when an amount of money is rather passed on to others.</p>
+    </div>
+<div class="centered">
+  <div class="next-button-container">
+    {{ next_button }}
+  </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 10) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+{% endblock %}
+

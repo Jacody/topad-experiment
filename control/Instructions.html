@@ -1,0 +1,120 @@
+
+{% block title %}
+    <div class="centered">
+        <h1>Instructions</h1>
+        <h4>Take it or double it and give it to the next person.</h4>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <style>
+    .otree-timer {
+        display: none;
+    }
+    </style>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .centered {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .content {
+    margin: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .next-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Space above the button */
+  }
+</style>
+
+
+<div class="content">
+
+    Thank you for joining our economic experiment.
+    You'll be playing for real money in this game.
+    You will be placed in a line where each person gets a money offer.
+    The first person will be offered 3 cents.
+    Each subsequent person will be offered twice as much money as the one before.
+    This continues until the 10th person, who will get $15.36.
+    Here's what each person will be offered:
+
+    <br><br>
+
+  <table>
+    <tr>
+      <th>1.</th>
+      <th>2.</th>
+      <th>3.</th>
+      <th>4.</th>
+      <th>5.</th>
+      <th>6.</th>
+      <th>7.</th>
+      <th>8.</th>
+      <th>9.</th>
+      <th>10.</th>
+    </tr>
+    <tr>
+      <td>0,03</td>
+      <td>0,06</td>
+      <td>0,12</td>
+      <td>0,24</td>
+      <td>0,48</td>
+      <td>0,96</td>
+      <td>1,92</td>
+      <td>3,84</td>
+      <td>7,68</td>
+      <td>15,36</td>
+    </tr>
+  </table>
+    <br><br>
+    <b>The first person in line who agrees to take the offer will get the money, and no one else will.</b>
+    If all players decide to pass the money on, the last player will get the money.
+    The game will be played for 10 rounds, so there will be 10 Payouts. The position of each player will be shuffled every round.
+    After each round, you'll find out which position took the money first and how much money that person received.
+
+</div>
+
+<div class="centered">
+  <div class="next-button-container">
+    {{ next_button }}
+  </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 10) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+{% endblock %}
+

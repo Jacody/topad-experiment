@@ -1,0 +1,90 @@
+{{ block content }}
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .centered {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .content {
+    margin: 20px;
+  }
+
+  .next-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Space above the button */
+  }
+
+  .progress-bar {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .progress {
+    height: 25px;
+    background-color: #4caf50;
+    width: 0;
+    text-align: center;
+    color: white;
+    line-height: 25px; /* Align text vertically */
+  }
+</style>
+
+<div class="content centered">
+    <h1>Please wait for a few seconds</h1>
+    <p>until all players have made their decision. </p>
+    <p>Please stay present, it will continue shortly</p>
+    <p><span id="arrived-players-count">0</span> out of {{ C.NUM_ROUNDS }} players are ready.</p>
+    <div class="progress-bar">
+        <div class="progress" id="progress-bar">0%</div>
+    </div>
+</div>
+
+<script>
+    const numRounds = {{ C.NUM_ROUNDS }};  // Dynamischer Wert aus dem Template
+
+    function updateArrivedPlayersCount(count) {
+        const arrivedPlayersCount = document.getElementById("arrived-players-count");
+        arrivedPlayersCount.textContent = count;
+        updateProgressBar(count);
+    }
+
+    function updateProgressBar(count) {
+        const progressBar = document.getElementById("progress-bar");
+        const percentage = (count / numRounds) * 100;
+        progressBar.style.width = percentage + '%';
+        progressBar.textContent = Math.round(percentage) + '%';
+    }
+
+    function liveRecv(data) {
+        console.log('data', data);
+        if (data.finished) {
+            document.getElementById("form").submit();
+        }
+        if (data.arrived_count !== undefined) {
+            updateArrivedPlayersCount(data.arrived_count);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+        liveSend({'type': 'wait_page'});
+    });
+</script>
+
+
+{{ endblock }}

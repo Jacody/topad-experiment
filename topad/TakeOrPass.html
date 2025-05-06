@@ -1,0 +1,106 @@
+{% block title %}
+    <div class="centered">
+        Take it or double it and give it to the next Person?
+    </div>
+{% endblock %}
+
+{% block content %}
+    <style>
+        .otree-timer {
+        display: none;
+    }
+        .centered {
+            text-align: center;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .main-table {
+            width: 100%;                       /* Sets the width of the table to the full width of the container */
+            border-collapse: collapse;         /* Removes the space between cells */
+            border-top: 2px solid black;       /* Adds a black line at the top of the table */
+            border-bottom: 2px solid black;    /* Adds a black line at the bottom of the table */
+        }
+        .main-table td {
+            padding: 8px;                      /* Adds some padding in cells for better readability */
+            vertical-align: top;               /* Ensures content starts at the top of the cell */
+            width: 50%;                        /* Each column occupies exactly half the table's width */
+        }
+        .text-column {
+            text-align: right;                 /* Aligns text of the left column to the right */
+        }
+        .variable-column {
+            text-align: left;                  /* Aligns text of the right column to the left */
+        }
+        .form-table {
+            margin: 0 auto;                    /* Centers the table */
+            border-collapse: collapse;         /* Removes the space between cells */
+        }
+        .form-table td {
+            border: none;                      /* Removes borders from table cells */
+            padding: 5px;
+        }
+        .form-table .radio-cell {
+            text-align: right;                 /* Aligns radio buttons to the right */
+        }
+        .form-table .label-cell {
+            text-align: left;                  /* Aligns labels to the left */
+        }
+        .form-errors {
+            color: red;
+        }
+        .left-align {
+            text-align: left;                  /* Ensures content is left-aligned */
+        }
+    </style>
+    <br>
+    <div class="centered">
+        {% if player.round_number != 1 %}
+            Time for a new round!<br>
+        {% endif %}
+            This is Round {{ player.round_number }} of {{ C.NUM_ROUNDS }}
+
+            <br><br>
+
+        <table class="main-table">
+            <tr>
+                <td class="text-column">You are in position</td>
+                <td class="variable-column">{{ player.position }}</td>
+            </tr>
+            <tr>
+                <td class="text-column">So you are offered</td>
+                <td class="variable-column">${{ player.possible_payoff }}</td>
+            </tr>
+        </table>
+        <br>
+        <br> <!-- Adds two line breaks to move the Next button down -->
+    Please choose if you would like to take the money or have it doubled and passed to the next person.
+    <br><br>
+    </div>
+    <div class="centered">
+        <table class="form-table" style="width: 50%;">
+            <tr>
+                <td style="width: 30%;"></td>
+                <td class="left-align" style="width: 50%;">{{ formfields }}</td>
+            </tr>
+
+        </table>
+    </div>
+    <br><br>
+    <div class="centered">
+        {{ next_button }}
+    </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 5) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+
+

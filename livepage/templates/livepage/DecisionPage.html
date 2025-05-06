@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+  <h1>Entscheidung</h1>
+  <form id="decision_form">
+    {{ formfields }}
+    <button type="button" id="submit_btn">Submit</button>
+  </form>
+
+  <h2>Entscheidungen der anderen Spieler:</h2>
+  <ul id="decisions_list">
+  </ul>
+
+  <script>
+    const submitBtn = document.getElementById('submit_btn');
+    const decisionsList = document.getElementById('decisions_list');
+    const decisionForm = document.getElementById('decision_form');
+
+    submitBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      const decision = document.querySelector('input[name="decision"]:checked').value === 'True';
+      console.log(`Sending decision: ${decision}`);
+      liveSend({'decision': decision});
+    });
+
+    liveRecv(function(message) {
+      console.log(`Received message: ${JSON.stringify(message)}`);
+      decisionsList.innerHTML = '';
+      for (const [playerId, decision] of Object.entries(message)) {
+        const li = document.createElement('li');
+        li.textContent = `Spieler ${playerId}: ${decision ? 'Angenommen' : 'Abgelehnt'}`;
+        decisionsList.appendChild(li);
+      }
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% block title %}
+    <h1 style="text-align: center;">
+        Check-Up
+    </h1>
+{% endblock %}
+
+
+{% block content %}
+    <style>
+    .otree-timer {
+        display: none;
+    }
+</style>
+
+    <br>
+    <style>
+        html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .centered {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+        .content-padding {
+            padding-left: 20px; /* Adjust the value as needed */
+        }
+  .main-table {
+            width: 100%;                       /* Sets the width of the table to the full width of the container */
+            border-collapse: collapse;         /* Removes the space between cells */
+            border-top: 2px solid black;       /* Adds a black line at the top of the table */
+            border-bottom: 2px solid black;    /* Adds a black line at the bottom of the table */
+        }
+        .main-table td {
+            padding: 8px;                      /* Adds some padding in cells for better readability */
+            vertical-align: top;               /* Ensures content starts at the top of the cell */
+            width: 50%;                        /* Each column occupies exactly half the table's width */
+        }
+        .text-column {
+            text-align: right;                 /* Aligns text of the left column to the right */
+        }
+        .variable-column {
+            text-align: left;                  /* Aligns text of the right column to the left */
+        }
+        .form-table {
+            margin: 0 auto;                    /* Centers the table */
+            border-collapse: collapse;         /* Removes the space between cells */
+        }
+        .form-table td {
+            border: none;                      /* Removes borders from table cells */
+            padding: 5px;
+        }
+        .form-table .radio-cell {
+            text-align: right;                 /* Aligns radio buttons to the right */
+        }
+        .form-table .label-cell {
+            text-align: left;                  /* Aligns labels to the left */
+        }
+        .form-errors {
+            color: red;
+        }
+        .left-align {
+            text-align: left;                  /* Ensures content is left-aligned */
+        }
+    </style>
+    <div class="centered">
+        Since your initial response to the following question was incorrect, here is another opportunity to provide an accurate answer.<br><br>
+    </div>
+    The next round begins, and in this round, every player chooses to  <b>take </b> the money except for the players in positions 5 and 7. Who will get the money this time?<br><br>
+
+    <div class="centered">
+        <table class="form-table" style="width: 70%;">
+            <tr>
+                <td style="width: 30%;"></td>
+                <td class="left-align" style="width: 75%;">{{ formfields }}</td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="centered">
+    <br>
+        Remember, only the first person in line who agrees to take the offer will get the money, and no one else will. <br>
+    <br><br>
+    </div>
+
+    <div class="centered">
+  <div class="next-button-container">
+    {{ next_button }}
+        </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 7) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+{% endblock %}
