@@ -52,8 +52,6 @@ The main configuration is in the `settings.py` file:
 otree devserver
 ```
 
-2. The experiment is then available at `http://localhost:8000`.
-
 ## Data Analysis
 
 The project contains several Python scripts for analyzing the experimental data:
