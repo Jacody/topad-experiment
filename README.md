@@ -2,6 +2,9 @@
 
 A behavioral economics "Take-or-Pass" decision experiment, developed with [oTree](https://www.otree.org/), a Python platform for online experiments.
 
+
+https://github.com/Jacody/topad-experiment/blob/main/Master%20Thesis%20Scheer.pdf
+
 ## Project Description
 
 This project implements a "Take-or-Pass and Double" (TOPAD) decision game developed as part of a master's thesis. In this experiment, participants must decide in multiple rounds whether to accept an offered amount of money ("Take") or decline and pass it to the next person ("Pass"), where the amount is then doubled.
